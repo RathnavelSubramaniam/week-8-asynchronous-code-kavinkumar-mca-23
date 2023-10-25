@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const busStops = [
+            [76.9558, 11.0168],
+            [76.9674, 11.0176],
+            [76.9870, 11.0223],
+            [77.0296, 11.0007],
+            [77.0490, 11.0033],
+            [77.0957, 11.0179],
+            [77.1246, 11.0254],
+            [77.1331, 11.0260],
+        ];
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic2VudGhpbGt1cHB1c3dhbXkiLCJhIjoiY2twbTlkMzBlMDQxYjJ2bXcwcG5xdnhzNCJ9.mmPcPQN_3raRRh8Q0S1kEw';
+        let map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [76.9558, 11.0168],
+            zoom: 14,
+        });
+        var marker = new mapboxgl.Marker()
+            .setLngLat([76.9558, 11.0168])
+            .addTo(map);
+
+        let counter = 0;
+
+        function move() {
+            setTimeout(() => {
+                if (counter >= busStops.length) return;
+                marker.setLngLat(busStops[counter]);
+                counter++;
+                move();
+            }, 1000);
+        }
+        if (typeof module !== 'undefined') {
+            module.exports = {
+                move
+            };
+        }
+    </script>
+</body>
+
+</html>
